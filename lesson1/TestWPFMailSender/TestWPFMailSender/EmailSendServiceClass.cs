@@ -54,7 +54,7 @@ namespace TestWPFMailSender
                     using (var client = new SmtpClient(EmailServer.ServerName, EmailServer.Port))
                     {
                         client.EnableSsl = true;
-                        client.Credentials = new NetworkCredential("thegrace12", Password); //TODO: убрать жесткий username
+                        client.Credentials = new NetworkCredential(From.Email, Password); //TODO: надо что то придумать с логином
 
                         client.Send(message);
 
