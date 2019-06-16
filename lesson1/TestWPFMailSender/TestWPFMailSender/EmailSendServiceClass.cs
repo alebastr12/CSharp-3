@@ -18,10 +18,10 @@ namespace TestWPFMailSender
             To = new List<Person>();
             EmailServer = new Server() //Забиваю данные по умолчанию
             {
-                ServerName = "smtp.yandex.ru",
+                ServerName = "smtp.mail.ru",
                 Port = 25
             };
-            From = new Person("thegrace12@yandex.ru", "Александр");
+            From = new Person("thegrace12@bk.ru", "Александр");
         }
 
         public bool SendMessage(string subject, string body)
