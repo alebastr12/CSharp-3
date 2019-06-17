@@ -24,22 +24,21 @@ namespace TestWPFMailSender
             if (EmailsTo.Length > 0)
             {
                 Email.To.Clear();
-                foreach(string email in EmailsTo)
-                {
-                    Email.To.Add(new Person(email,"Имя"));
-                }
-                Email.Password = PasswordBox.SecurePassword;
-                //Email.EmailServer.Port = Convert.ToInt32(PortBox.Text);
                 try
                 {
+                    foreach (string email in EmailsTo)
+                    {
+                        Email.To.Add(new Person(email, "Имя"));
+                    }
+                    Email.Password = PasswordBox.SecurePassword;
                     Email.SendMessage(SubjectBox.Text, BodyBox.Text);
-                    MessageBox.Show("Почта отправлена успешно!", "Успех!!!",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageDialog dialog = new MessageDialog("Почта отправлена успешно!", "Успех!!!", MessageImage.Information);
+                    dialog.ShowDialog();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при отправке почты \r\n{ex.Message}", "Ошибка!",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageDialog ErrDialog = new MessageDialog($"Ошибка при отправке почты!\r\n{ex.Message}", "Ошибка!", MessageImage.Error);
+                    ErrDialog.ShowDialog();
                 }
             }
         }
