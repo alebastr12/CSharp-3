@@ -1,0 +1,135 @@
+﻿<Window x:Class="MailSender.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:MailSender"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="900">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Создать"/>
+                <MenuItem Header="Открыть"/>
+                <MenuItem Header="Сохранить"/>
+                <MenuItem Header="Закрыть"/>
+                <Separator/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+            <MenuItem Header="Сервис"></MenuItem>
+            <MenuItem Header="Помощь"></MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock>Пока не готов..:(</TextBlock>
+        </StatusBar>
+        <TabControl Name="MainTabControl">
+            <TabItem Header="Списки">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ToolBarTray Grid.Row="0" Background="Transparent">
+                        <ToolBarTray.Resources>
+                            <Style TargetType="ToolBar">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                            <Style TargetType="fa:ImageAwesome">
+                                <Setter Property="Height" Value="15"/>
+                                <Setter Property="Margin" Value="0,0,3,0"/>
+                            </Style>
+                        </ToolBarTray.Resources>
+                        <ToolBar>
+                            <Label>Сервера</Label>
+                            <ComboBox MaxWidth="200" MinWidth="120"></ComboBox>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="PlusSquare"/>
+                                    <TextBlock>Добавить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Edit"/>
+                                    <TextBlock>Редактировать</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Trash"/>
+                                    <TextBlock>Удалить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar Band="1">
+                            <Label>Отправители</Label>
+                            <ComboBox MaxWidth="200" MinWidth="120"></ComboBox>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="PlusSquare"/>
+                                    <TextBlock>Добавить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Edit"/>
+                                    <TextBlock>Редактировать</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Trash"/>
+                                    <TextBlock>Удалить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar>
+                            <Label>Список адресатов</Label>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="PlusSquare"/>
+                                    <TextBlock>Добавить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Edit"/>
+                                    <TextBlock>Редактировать</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Trash"/>
+                                    <TextBlock>Удалить</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar Band="1">
+                            <Label>Перейти в планировщик</Label>
+                            <Button>
+                                <fa:ImageAwesome Icon="ClockOutline"/>
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <GroupBox Grid.Row="1" Header="Получатели писем">
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True"
+                                  HeadersVisibility="Column" GridLinesVisibility="Vertical"
+                                  AlternatingRowBackground="LightGray"
+                                  VerticalGridLinesBrush="DarkGray">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID"/>
+                                <DataGridTextColumn Header="Имя" MinWidth="150"/>
+                                <DataGridTextColumn Header="Email" MinWidth="150"/>
+                                <DataGridTextColumn Header="Коментарий" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Планировщик"></TabItem>
+            <TabItem Header="Редактор сообщений"></TabItem>
+            <TabItem Header="Статистика" IsEnabled="False"></TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
