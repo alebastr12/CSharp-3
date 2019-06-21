@@ -1,0 +1,40 @@
+﻿<Window x:Class="TestWPFMailSender.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPFMailSender"
+        mc:Ignorable="d"
+        Title="Рассыльщик почты" Height="450" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Адресс сервера:</TextBlock>
+        <TextBox Margin="2" DataContext="{Binding Path=EmailServer}" Text="{Binding Path=ServerName, UpdateSourceTrigger=PropertyChanged}" Name="AdresBox" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"></TextBox>
+        <TextBlock Margin="2" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Порт сервера:</TextBlock>
+        <TextBox Margin="2" DataContext="{Binding Path=EmailServer}" Text="{Binding Path=Port, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Name="PortBox" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center"></TextBox>
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Пользователь:</TextBlock>
+        <TextBox Margin="2" Name="UserBox" DataContext="{Binding Path=From}" Text="{Binding Path=Email}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+        <TextBlock Margin="2" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Пароль:</TextBlock>
+        <PasswordBox Margin="2" Name="PasswordBox"  Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"/>
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Адресаты:</TextBlock>
+        <TextBox Margin="2" Name="EmailToBox" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center"></TextBox>
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Тема письма:</TextBlock>
+        <TextBox Margin="2" Name="SubjectBox" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Center"></TextBox>
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right">Текст письма:</TextBlock>
+        <TextBox Margin="2"  Name="BodyBox" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"></TextBox>
+        <Button Content="Отправить" Grid.Column="3" Grid.Row="5" Margin="4" Name="SendButton" Click="SendMessage_Click"/>
+    </Grid>
+</Window>
