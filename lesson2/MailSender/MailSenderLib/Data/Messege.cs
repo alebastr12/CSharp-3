@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MailSenderLib.Data
 {
-    class Messege
+    public class Messege
     {
         public string subject { get; set; }
 

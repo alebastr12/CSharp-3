@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MailSender.Components;
 
 namespace MailSender
 {
@@ -28,6 +29,36 @@ namespace MailSender
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void TabController_OnLeftButtonClick(object sender, EventArgs e)
+        {
+            MainTabControl.SelectedIndex--;
+            
+            TabControllerCheck();
+        }
+        private void TabController_OnRightButtonClick(object sender, EventArgs e)
+        {
+            MainTabControl.SelectedIndex++;
+
+            TabControllerCheck();
+        }
+
+        private void ToPlane_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = PlaneTab;
+
+            TabControllerCheck();
+        }
+        private void TabControllerCheck()
+        {
+            TabController.IsLeftButtonVisible = MainTabControl.SelectedIndex > 0;
+            TabController.IsRirhtButtonVisible = MainTabControl.SelectedIndex < MainTabControl.Items.Count - 1;
+        }
+
+        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TabControllerCheck();
         }
     }
 }

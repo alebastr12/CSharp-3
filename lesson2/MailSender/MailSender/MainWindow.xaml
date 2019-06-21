@@ -6,6 +6,8 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:MailSender"
+        xmlns:data="clr-namespace:MailSenderLib.Data;assembly=MailSenderLib"
+        xmlns:cmp="clr-namespace:MailSender.Components"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="900">
     <DockPanel>
@@ -45,19 +47,46 @@
             <MenuItem Header="Помощь"></MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem DockPanel.Dock="Right">
+                <cmp:TabController x:Name="TabController" Width="100" IsLeftButtonVisible="False"
+                                   ButtonLeftClick="TabController_OnLeftButtonClick"
+                                   ButtonRightClick="TabController_OnRightButtonClick"/>
+            </StatusBarItem>
             <TextBlock>Пока не готов..:(</TextBlock>
         </StatusBar>
-        <TabControl Name="MainTabControl">
-            <TabItem Header="Списки">
+        <TabControl Name="MainTabControl" SelectionChanged="MainTabControl_SelectionChanged">
+            <TabItem Header="Списки" Name="ListTab">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <ToolBarTray Grid.Row="0" Background="Transparent">
+                    <ToolBarTray  Grid.Row="0" Background="Transparent">
                         <ToolBar>
-                            <Label>Сервера</Label>
-                            <ComboBox MaxWidth="200" MinWidth="120"></ComboBox>
+                            <cmp:ComboControl TaxtLabel="Сервера" ItemSource="{x:Static data:TestData.Servers}">
+                                <cmp:ComboControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type data:Server}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Address}"/>
+                                            <TextBlock>:</TextBlock>
+                                            <TextBlock Text="{Binding Port}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </cmp:ComboControl.ItemTemplate>
+                            </cmp:ComboControl>
+                            <!--<Label>Сервера</Label>
+                            <ComboBox Name="ServBox" MaxWidth="200" MinWidth="120" 
+                                      ItemsSource="{x:Static data:TestData.Servers}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type data:Server}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Address}"/>
+                                            <TextBlock>:</TextBlock>
+                                            <TextBlock Text="{Binding Port}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                             <Button>
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="PlusSquare"/>
@@ -75,9 +104,22 @@
                                     <fa:ImageAwesome Icon="Trash"/>
                                     <TextBlock>Удалить</TextBlock>
                                 </StackPanel>
-                            </Button>
+                            </Button>-->
                         </ToolBar>
                         <ToolBar Band="1">
+                            <cmp:ComboControl TaxtLabel="Отправители" ItemSource="{x:Static data:TestData.Senders}">
+                                <cmp:ComboControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type data:Sender}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text="{Binding Address}"
+                                                       Margin="3,0,0,0" Opacity="0.6"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </cmp:ComboControl.ItemTemplate>
+                            </cmp:ComboControl>
+                        </ToolBar>
+                        <!--<ToolBar Band="1">
                             <Label>Отправители</Label>
                             <ComboBox MaxWidth="200" MinWidth="120"></ComboBox>
                             <Button>
@@ -98,7 +140,7 @@
                                     <TextBlock>Удалить</TextBlock>
                                 </StackPanel>
                             </Button>
-                        </ToolBar>
+                        </ToolBar>-->
                         <ToolBar>
                             <Label>Список адресатов</Label>
                             <Button>
@@ -122,7 +164,7 @@
                         </ToolBar>
                         <ToolBar Band="1">
                             <Label>Перейти в планировщик</Label>
-                            <Button>
+                            <Button Click="ToPlane_ButtonClick">
                                 <fa:ImageAwesome Icon="ClockOutline"/>
                             </Button>
                         </ToolBar>
@@ -131,18 +173,19 @@
                         <DataGrid AutoGenerateColumns="False" IsReadOnly="True"
                                   HeadersVisibility="Column" GridLinesVisibility="Vertical"
                                   AlternatingRowBackground="LightGray"
-                                  VerticalGridLinesBrush="DarkGray">
+                                  VerticalGridLinesBrush="DarkGray"
+                                  ItemsSource="{x:Static data:TestData.Recipients}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID"/>
-                                <DataGridTextColumn Header="Имя" MinWidth="150"/>
-                                <DataGridTextColumn Header="Email" MinWidth="150"/>
-                                <DataGridTextColumn Header="Коментарий" Width="*"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                                <DataGridTextColumn Header="Имя" MinWidth="150" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Email" MinWidth="150" Binding="{Binding Address}"/>
+                                <DataGridTextColumn Header="Коментарий" Width="*" Binding="{Binding Description}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Планировщик">
+            <TabItem Header="Планировщик" Name="PlaneTab">
                 <DockPanel>
                     <StackPanel>
                         <TextBlock>Дата:</TextBlock>
@@ -174,7 +217,7 @@
                     </GroupBox>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Редактор сообщений">
+            <TabItem Header="Редактор сообщений" Name="EditTab">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -196,26 +239,26 @@
                                     </StackPanel>
                                 </Button>
                             </UniformGrid>
-                            <ListBox>
-                                <ListBoxItem>Письмо 1</ListBoxItem>
-                                <ListBoxItem>Письмо 2</ListBoxItem>
-                                <ListBoxItem>Письмо 3</ListBoxItem>
-                                <ListBoxItem>Письмо 4</ListBoxItem>
-                                <ListBoxItem>Письмо 5</ListBoxItem>
+                            <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messeges}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type data:Messege}">
+                                        <TextBlock Text="{Binding subject}" ToolTip="{Binding body}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
                             </ListBox>
                         </DockPanel>
                     </GroupBox>
                     <DockPanel Grid.Column="1">
                         <GroupBox Header="Тема" DockPanel.Dock="Top">
-                            <TextBox Text="Тема"/>
+                            <TextBox Text="{Binding SelectedItem.subject, ElementName=MessagesList}"/>
                         </GroupBox>
                         <GroupBox Header="Тело" DockPanel.Dock="Top">
-                            <TextBox AcceptsReturn="True" Text=""/>
+                            <TextBox AcceptsReturn="True" Text="{Binding SelectedItem.body, ElementName=MessagesList}"/>
                         </GroupBox>
                     </DockPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика" IsEnabled="False"></TabItem>
+            <TabItem Header="Статистика" Name="StatTab" IsEnabled="False"></TabItem>
         </TabControl>
     </DockPanel>
 </Window>
