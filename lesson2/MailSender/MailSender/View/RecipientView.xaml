@@ -16,8 +16,8 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" TextAlignment="Center">Получатели писем:</TextBlock>
         <DockPanel DockPanel.Dock="Top">
-            <TextBlock>Фильтр по имени: </TextBlock>
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Margin="2,3">Фильтр по имени: </TextBlock>
+            <TextBox Margin="2,3" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         <Button Command="{Binding UpdateDataCommand}" 
                 DockPanel.Dock="Bottom" Content="Обновить" HorizontalAlignment="Center"/>
