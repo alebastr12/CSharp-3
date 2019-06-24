@@ -23,12 +23,7 @@ namespace MailSenderLib.Data
             Address = $"user{i}@yandex.ru"
         }).ToArray();
 
-        public static Recipient[] Recipients { get; } = Enumerable.Range(0, 10).Select(i => new Recipient
-        {
-            ID=i,
-            Name = $"User {i}",
-            Address = $"user{i}@yandex.ru"
-        }).ToArray();
+        
 
         public static Messege[] Messeges { get; } = Enumerable.Range(0, 10).Select(i => new Messege
         {

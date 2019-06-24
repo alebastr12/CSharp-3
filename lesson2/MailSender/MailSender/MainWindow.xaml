@@ -8,8 +8,10 @@
         xmlns:local="clr-namespace:MailSender"
         xmlns:data="clr-namespace:MailSenderLib.Data;assembly=MailSenderLib"
         xmlns:cmp="clr-namespace:MailSender.Components"
+        xmlns:view="clr-namespace:MailSender.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900">
+        DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
+        Title="{Binding Title}" Height="450" Width="900">
     <DockPanel>
         <DockPanel.Resources>
             
@@ -52,7 +54,7 @@
                                    ButtonLeftClick="TabController_OnLeftButtonClick"
                                    ButtonRightClick="TabController_OnRightButtonClick"/>
             </StatusBarItem>
-            <TextBlock>Пока не готов..:(</TextBlock>
+            <TextBlock Text="{Binding Status}"/>
         </StatusBar>
         <TabControl Name="MainTabControl" SelectionChanged="MainTabControl_SelectionChanged">
             <TabItem Header="Списки" Name="ListTab">
@@ -169,12 +171,21 @@
                             </Button>
                         </ToolBar>
                     </ToolBarTray>
-                    <GroupBox Grid.Row="1" Header="Получатели писем">
+                    <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                        <view:RecipientView Grid.Column="0"/>
+                        <view:EditRecipientView Grid.Column="1" Margin="0,28,0,0"/>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Background="Transparent"/>
+                    </Grid>
+                    <!--<GroupBox Grid.Row="1" Header="Получатели писем">
                         <DataGrid AutoGenerateColumns="False" IsReadOnly="True"
                                   HeadersVisibility="Column" GridLinesVisibility="Vertical"
                                   AlternatingRowBackground="LightGray"
-                                  VerticalGridLinesBrush="DarkGray"
-                                  ItemsSource="{x:Static data:TestData.Recipients}">
+                                  VerticalGridLinesBrush="DarkGray">
+
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                                 <DataGridTextColumn Header="Имя" MinWidth="150" Binding="{Binding Name}"/>
@@ -182,7 +193,7 @@
                                 <DataGridTextColumn Header="Коментарий" Width="*" Binding="{Binding Description}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                    </GroupBox>
+                    </GroupBox>-->
                 </Grid>
             </TabItem>
             <TabItem Header="Планировщик" Name="PlaneTab">
