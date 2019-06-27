@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="MailSender.Components.TabController"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:local="clr-namespace:MailSender.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="500">
+    <UniformGrid Rows="1">
+        <Button Name="ButtonLeft" Click="OnClick_Button">
+            <fa:ImageAwesome Icon="AngleLeft" Height="15"/>
+        </Button>
+        <Button Name="ButtonRight" Click="OnClick_Button">
+            <fa:ImageAwesome Icon="AngleRight" Height="15"/>
+        </Button>
+    </UniformGrid>
+</UserControl>
