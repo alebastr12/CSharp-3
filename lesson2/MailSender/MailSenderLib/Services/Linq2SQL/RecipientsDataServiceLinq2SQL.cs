@@ -30,7 +30,7 @@ namespace MailSenderLib.Services.Linq2SQL
 
         public IEnumerable<Recipient> GetAll()
         {
-            return _db.Recipient.ToArray();
+            return _db.Recipient.AsEnumerable();
         }
 
         public void Update(Recipient item)

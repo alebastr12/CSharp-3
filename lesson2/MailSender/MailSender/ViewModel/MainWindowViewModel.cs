@@ -85,15 +85,21 @@ namespace MailSender.ViewModel
         private void OnDeleteRecipientComand()
         {
             _RecipientsDataService.Delete(_CurrentRecipient);
-            UpdateData();
+            _Recipients.Remove(_CurrentRecipient);
         }
-        private bool CanDeleteRecipientCommandExecute() => _CurrentRecipient?.IsValid() ?? false;
+        private bool CanDeleteRecipientCommandExecute()
+        {
+            return !(_CurrentRecipient is null);
+        }
         private bool CanCreateRecipientCommandExecute() => true;
-        private bool CanSaveRecipientCommandExecuted(Recipient recipient) => recipient?.IsValid() ?? false;
+        private bool CanSaveRecipientCommandExecuted(Recipient recipient)
+        {
+            return (_CurrentRecipient?.IsNameValid() ?? false) & (_CurrentRecipient?.IsAddressValid() ?? false);
+        }
         private void OnSaveRecipientCommandExecuted(Recipient obj)
         {
             _RecipientsDataService.Update(obj);
-            UpdateData();
+            //UpdateData();
         }
 
         private void OnCreateRecipientCommandExecuted()
