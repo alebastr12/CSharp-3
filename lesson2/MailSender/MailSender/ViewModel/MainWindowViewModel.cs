@@ -8,7 +8,7 @@ using MailSenderLib.Services;
 using MailSenderLib.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace MailSender.ViewModel
 {
