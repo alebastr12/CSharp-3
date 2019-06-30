@@ -13,7 +13,7 @@ namespace ThreadTest
         {
             while (true)
             {
-                Console.Write($"Введите положительное число (CPU {Environment.ProcessorCount}):");
+                Console.Write($"Введите положительное число:");
                 int n = int.Parse(Console.ReadLine());
 
                 Console.WriteLine($"Рекурсивный факториал: {Factorial(n)}");
@@ -33,12 +33,12 @@ namespace ThreadTest
             if (n <= nCPU) fact = Factorial(n);
             else
             {
-                var tasks = new List<Task>();
+                var tasks = new List<Thread>();
                 for (int i = 0; i < n; i+=n/nCPU)
                 {
                     int right = (i + n / nCPU) > n ? n : i + n / nCPU;
                     int left = i + 1;
-                    tasks.Add(Task.Run(() =>
+                    tasks.Add(new Thread(() =>
                     {
                         double res = FactorialFromTo(left, right);
                         lock (_locker)
@@ -47,35 +47,50 @@ namespace ThreadTest
                         }
                     }));
                 }
-                Task.WaitAll(tasks.ToArray());
+                foreach (var item in tasks)
+                {
+                    item.Start();
+                }
+                foreach (var item in tasks)
+                {
+                    item.Join();
+                }
             }
             return fact;
         }
         static double ParallelSum(int n)
         {
-            double sum = 0;
+            double result = 0;
 
             int nCPU = Environment.ProcessorCount;
-            if (n <= nCPU) sum = SumFromTo(1,n);
+            if (n <= nCPU) result = SumFromTo(1,n);
             else
             {
-                var tasks = new List<Task>();
+                var tasks = new List<Thread>();
                 for (int i = 0; i < n; i += n / nCPU)
                 {
                     int right = (i + n / nCPU) > n ? n : i + n / nCPU;
                     int left = i + 1;
-                    tasks.Add(Task.Run(() =>
+                    tasks.Add(new Thread(() =>
                     {
                         double res = SumFromTo(left, right);
                         lock (_locker)
                         {
-                            sum += res;
+                            result += res;
                         }
                     }));
                 }
-                Task.WaitAll(tasks.ToArray());
+                foreach (var item in tasks)
+                {
+                    item.Start();
+                }
+                foreach (var item in tasks)
+                {
+                    item.Join();
+                }
+                
             }
-            return sum;
+            return result;
         }
         static double SumFromTo(int from, int to)
         {
