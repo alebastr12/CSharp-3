@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "MailSender\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSenderLib", "MailSenderLib\MailSenderLib.csproj", "{61EB4A79-256E-4A34-A749-7D0C85A939B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadTest", "ThreadTest\ThreadTest.csproj", "{5AD40E7D-BA95-4340-984F-6DE36DEA037E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{61EB4A79-256E-4A34-A749-7D0C85A939B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61EB4A79-256E-4A34-A749-7D0C85A939B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61EB4A79-256E-4A34-A749-7D0C85A939B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD40E7D-BA95-4340-984F-6DE36DEA037E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD40E7D-BA95-4340-984F-6DE36DEA037E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD40E7D-BA95-4340-984F-6DE36DEA037E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD40E7D-BA95-4340-984F-6DE36DEA037E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

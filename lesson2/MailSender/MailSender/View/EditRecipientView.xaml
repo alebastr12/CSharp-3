@@ -39,9 +39,9 @@
                                     <fa:ImageAwesome DockPanel.Dock="Left" 
                                          Icon="Exclamation" 
                                          Foreground="Red"/>
-                                    <Border BorderBrush="Red" BorderThickness="1">
+                                    
                                         <AdornedElementPlaceholder Name="ErrorElement"/>
-                                    </Border>
+                                    
                                 </DockPanel>
                                 <ItemsControl DataContext="{Binding AdornedElement, ElementName=ErrorElement}" ItemsSource="{Binding (Validation.Errors)}" 
                                   Background="White" Opacity="0.7">
