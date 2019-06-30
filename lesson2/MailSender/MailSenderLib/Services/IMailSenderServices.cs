@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MailSenderLib.Data;
+using MailSenderLib.Data
 
 namespace MailSenderLib.Services
 {
-    public interface IRecipientsDataService : IDataServices<Recipient>
+    public interface IMailSenderServices
     {
-        
+        IMailSender CreateSender(Server Server);
     }
 }

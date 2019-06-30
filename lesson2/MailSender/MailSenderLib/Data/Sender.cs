@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailSenderLib.Data.BaseEntityes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace MailSenderLib.Data
 {
-    public class Sender
+    public class Sender : Human
     {
-        public string Name { get; set; }
-        public string Address { get; set; }
+        
     }
 }

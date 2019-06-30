@@ -7,6 +7,8 @@ namespace ThreadTest
 {
     class Program
     {
+        static object _locker = new object();
+        static double result;
         static void Main(string[] args)
         {
             while (true)
@@ -16,6 +18,9 @@ namespace ThreadTest
 
                 Console.WriteLine($"Рекурсивный факториал: {Factorial(n)}");
                 Console.WriteLine($"Параллельный факториал: {ParallelFactorial(n)}");
+
+                Console.WriteLine($"Параллельная сумма: {ParallelSum(n)}");
+
             }
 
         }
@@ -23,7 +28,7 @@ namespace ThreadTest
         static double ParallelFactorial(int n)
         {
             double fact = 1;
-            object _locker = new object();
+            
             int nCPU = Environment.ProcessorCount;
             if (n <= nCPU) fact = Factorial(n);
             else
@@ -41,18 +46,46 @@ namespace ThreadTest
                             fact *= res;
                         }
                     }));
-                    //ThreadPool.QueueUserWorkItem((e) =>
-                    //{
-                    //    double res=FactorialFromTo(i + 1, right);
-                    //    lock (_locker)
-                    //    {
-                    //        fact *= res;
-                    //    }
-                    //});
                 }
                 Task.WaitAll(tasks.ToArray());
             }
             return fact;
+        }
+        static double ParallelSum(int n)
+        {
+            double sum = 0;
+
+            int nCPU = Environment.ProcessorCount;
+            if (n <= nCPU) sum = SumFromTo(1,n);
+            else
+            {
+                var tasks = new List<Task>();
+                for (int i = 0; i < n; i += n / nCPU)
+                {
+                    int right = (i + n / nCPU) > n ? n : i + n / nCPU;
+                    int left = i + 1;
+                    tasks.Add(Task.Run(() =>
+                    {
+                        double res = SumFromTo(left, right);
+                        lock (_locker)
+                        {
+                            sum += res;
+                        }
+                    }));
+                }
+                Task.WaitAll(tasks.ToArray());
+            }
+            return sum;
+        }
+        static double SumFromTo(int from, int to)
+        {
+            double sum = from;
+            while (from < to)
+            {
+                sum += from + 1;
+                from++;
+            }
+            return sum;
         }
         static double FactorialFromTo(int from, int to)
         {

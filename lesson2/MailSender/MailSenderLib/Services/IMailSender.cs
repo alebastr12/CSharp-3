@@ -7,8 +7,9 @@ using MailSenderLib.Data;
 
 namespace MailSenderLib.Services
 {
-    public interface IRecipientsDataService : IDataServices<Recipient>
+    public interface IMailSender
     {
-        
+        void Send(Message Message, Sender From, Recipient To);
+        void Send(Message Message, Sender From, IEnumerable<Recipient> To);
     }
 }

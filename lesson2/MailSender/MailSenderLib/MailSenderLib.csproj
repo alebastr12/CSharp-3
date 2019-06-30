@@ -43,13 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
-    <Compile Include="Data\Messege.cs" />
-    <Compile Include="Data\Recipient.cs" />
-    <Compile Include="Data\Recipients.designer.cs">
+    <Compile Include="Data\BaseEntityes\Entity.cs" />
+    <Compile Include="Data\BaseEntityes\Human.cs" />
+    <Compile Include="Data\BaseEntityes\NamedEntity.cs" />
+    <Compile Include="Data\Message.cs" />
+    <Compile Include="Data\Linq2SQL\Recipient.cs" />
+    <Compile Include="Data\Linq2SQL\Recipients.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Recipients.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Recipient.cs" />
     <Compile Include="Data\Sender.cs" />
     <Compile Include="Data\Server.cs" />
     <Compile Include="Data\TestData.cs" />
@@ -61,17 +65,25 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\IDataServices.cs" />
+    <Compile Include="Services\IMailSender.cs" />
+    <Compile Include="Services\IMailSenderServices.cs" />
+    <Compile Include="Services\IMessageDataServices.cs" />
     <Compile Include="Services\IRecipientsDataService.cs" />
+    <Compile Include="Services\ISenderDataServices.cs" />
+    <Compile Include="Services\IServerDataServices.cs" />
     <Compile Include="Services\Linq2SQL\RecipientsDataServiceLinq2SQL.cs" />
+    <Compile Include="Services\SmtpMailSender.cs" />
+    <Compile Include="Services\SmtpMailSenderServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Data\Recipients.dbml">
+    <None Include="Data\Linq2SQL\Recipients.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Recipients.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Data\Recipients.dbml.layout">
+    <None Include="Data\Linq2SQL\Recipients.dbml.layout">
       <DependentUpon>Recipients.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
