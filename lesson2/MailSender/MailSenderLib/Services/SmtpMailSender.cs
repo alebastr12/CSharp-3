@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MailSenderLib.Data;
+using System.Net;
+using System.Net.Mail;
+using System.Security;
+using System.Threading;
 
 namespace MailSenderLib.Services
 {
@@ -28,12 +32,36 @@ namespace MailSenderLib.Services
         }
         public void Send(Message Message, Sender From, Recipient To)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var message = new MailMessage())
+                {    
+                    message.To.Add(new MailAddress(To.Address, To.Name));
+                    message.From=new MailAddress(From.Address, From.Name);
+                    message.Subject = Message.subject;
+                    message.Body = Message.body;
+
+                    using (var client = new SmtpClient(_Server.Address, _Server.Port))
+                    {
+                        client.EnableSsl = _Server.UseSSL;
+                        client.Credentials = new NetworkCredential(_Server.UserName, _Server.Password);
+                        client.Send(message);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void Send(Message Message, Sender From, IEnumerable<Recipient> To)
         {
-            throw new NotImplementedException();
+            foreach (var item in To)
+            {
+                Recipient recipient= item;
+                ThreadPool.QueueUserWorkItem(p => Send(Message, From, recipient));
+            }
         }
     }
 }
