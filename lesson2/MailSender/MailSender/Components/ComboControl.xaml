@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:MailSender.Components"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="500">
-    <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="Horizontal" 
+                DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ComboControl}}}">
         <StackPanel.Resources>
             <Style TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
@@ -19,21 +20,22 @@
                 </Style.Triggers>
             </Style>
         </StackPanel.Resources>
-        <Label Name="label"></Label>
-        <ComboBox Name="combo"  MaxWidth="200" MinWidth="120" Margin="3"></ComboBox>
-        <Button>
+        <Label Content="{Binding PanelName}"></Label>
+        <ComboBox Name="combo"  MaxWidth="200" MinWidth="120" Margin="3" ItemsSource="{Binding ItemSource}" 
+                  SelectedItem="{Binding SelectedItem}" SelectedIndex="{Binding SelectedIndex}" ItemTemplate="{Binding ItemTemplate}"/>
+        <Button Command="{Binding CreateCommand}">
             <StackPanel Orientation="Horizontal">
                 <fa:ImageAwesome Icon="PlusSquare"/>
                 <TextBlock>Добавить</TextBlock>
             </StackPanel>
         </Button>
-        <Button>
+        <Button Command="{Binding EditCommand}">
             <StackPanel Orientation="Horizontal">
                 <fa:ImageAwesome Icon="Edit"/>
                 <TextBlock>Редактировать</TextBlock>
             </StackPanel>
         </Button>
-        <Button>
+        <Button Command="{Binding RemoveCommand}">
             <StackPanel Orientation="Horizontal">
                 <fa:ImageAwesome Icon="Trash"/>
                 <TextBlock>Удалить</TextBlock>

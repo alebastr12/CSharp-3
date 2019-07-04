@@ -65,7 +65,7 @@
                     </Grid.RowDefinitions>
                     <ToolBarTray  Grid.Row="0" Background="Transparent">
                         <ToolBar>
-                            <cmp:ComboControl TaxtLabel="Сервера" ItemSource="{x:Static data:TestData.Servers}">
+                            <cmp:ComboControl PanelName="Сервера" ItemSource="{Binding Servers}">
                                 <cmp:ComboControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type data:Server}">
                                         <StackPanel Orientation="Horizontal">
@@ -109,7 +109,7 @@
                             </Button>-->
                         </ToolBar>
                         <ToolBar Band="1">
-                            <cmp:ComboControl TaxtLabel="Отправители" ItemSource="{x:Static data:TestData.Senders}">
+                            <cmp:ComboControl PanelName="Отправители" ItemSource="{Binding Senders}">
                                 <cmp:ComboControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type data:Sender}">
                                         <StackPanel Orientation="Horizontal">
@@ -252,7 +252,7 @@
                             </UniformGrid>
                             <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messeges}">
                                 <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type data:Messege}">
+                                    <DataTemplate DataType="{x:Type data:Message}">
                                         <TextBlock Text="{Binding subject}" ToolTip="{Binding body}"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

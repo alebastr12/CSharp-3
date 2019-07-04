@@ -9,6 +9,7 @@ using MailSenderLib.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
+using MailSenderLib.Data.BaseEntityes;
 
 namespace MailSender.ViewModel
 {
@@ -16,6 +17,9 @@ namespace MailSender.ViewModel
     {
 
         private readonly IRecipientsDataService _RecipientsDataService;
+        private readonly IServerDataServices _ServerDataServices;
+        private readonly ISenderDataServices _SenderDataServices;
+
         private string _Title = "Рассыльщик почты";
 
         public string Title
@@ -42,7 +46,18 @@ namespace MailSender.ViewModel
         private Recipient _CurrentRecipient;
 
         private ObservableCollection<Recipient> BackRecipients;
-
+        private ObservableCollection<Server> _Servers = new ObservableCollection<Server>();
+        public ObservableCollection<Server> Servers
+        {
+            get => _Servers;
+            private set => Set(ref _Servers, value);
+        }
+        private ObservableCollection<Sender> _Senders = new ObservableCollection<Sender>();
+        public ObservableCollection<Sender> Senders
+        {
+            get => _Senders;
+            private set => Set(ref _Senders, value);
+        }
         public Recipient CurrentRecipient
         {
             get => _CurrentRecipient;
@@ -73,8 +88,11 @@ namespace MailSender.ViewModel
         public ICommand DeleteRecipientCommand { get; }
         
 
-        public MainWindowViewModel(IRecipientsDataService recipientsDataService)
+        public MainWindowViewModel(IRecipientsDataService recipientsDataService, IServerDataServices serverDataServices, 
+            ISenderDataServices senderDataServices)
         {
+            _SenderDataServices = senderDataServices;
+            _ServerDataServices = serverDataServices;
             _RecipientsDataService = recipientsDataService;
             UpdateDataCommand = new RelayCommand(OnUpdateDataCommandExecuted, CanUpdateDataCommandExecute);
             CreateRecipientCommand = new RelayCommand(OnCreateRecipientCommandExecuted, CanCreateRecipientCommandExecute);
@@ -98,7 +116,7 @@ namespace MailSender.ViewModel
         }
         private void OnSaveRecipientCommandExecuted(Recipient obj)
         {
-            _RecipientsDataService.Update(obj);
+            _RecipientsDataService.Edit(obj);
             //UpdateData();
         }
 
@@ -107,9 +125,9 @@ namespace MailSender.ViewModel
             var new_recipient = new Recipient
             {
                 Name = "Новый получатель",
-                Adddress = "recipient@server.com"
+                Address = "recipient@server.com"
             };
-            _RecipientsDataService.Create(new_recipient);
+            _RecipientsDataService.Add(new_recipient);
             _Recipients.Add(new_recipient);
             CurrentRecipient = new_recipient;
         }
@@ -125,6 +143,18 @@ namespace MailSender.ViewModel
         {
             Recipients = new ObservableCollection<Recipient>(_RecipientsDataService.GetAll());
             BackRecipients = new ObservableCollection<Recipient>(Recipients);
+
+            void UpdateData<T>(IDataServices<T> Service, ObservableCollection<T> Collection)
+                where T : Entity
+            {
+                Collection.Clear();
+                foreach (var entity in Service.GetAll())
+                    Collection.Add(entity);
+            }
+
+            UpdateData(_ServerDataServices, Servers);
+            UpdateData(_SenderDataServices, Senders);
+
         }
     }
 }

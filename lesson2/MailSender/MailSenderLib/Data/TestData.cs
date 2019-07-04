@@ -25,7 +25,7 @@ namespace MailSenderLib.Data
 
         
 
-        public static Messege[] Messeges { get; } = Enumerable.Range(0, 10).Select(i => new Messege
+        public static Message[] Messeges { get; } = Enumerable.Range(0, 10).Select(i => new Message
         {
             subject = $"Тема {i}",
             body = $"Текст письма №{i}"
