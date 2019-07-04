@@ -31,7 +31,7 @@
         <DataGrid.Columns>
             <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
             <DataGridTextColumn Header="Имя" MinWidth="150" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Email" MinWidth="150" Binding="{Binding Adddress}"/>
+                <DataGridTextColumn Header="Email" MinWidth="150" Binding="{Binding Address}"/>
             <DataGridTextColumn Header="Коментарий" Width="*" Binding="{Binding Description}"/>
         </DataGrid.Columns>
         </DataGrid>
