@@ -63,8 +63,8 @@ namespace MailSender.ViewModel
                 }
                 //value = value.ToLower();
                 //Set(ref _Name, value);
-                Recipients= new ObservableCollection<Recipient>(BackRecipients
-                    .Where((e) => e.Name.ToLower().Contains(_Name)).AsParallel());
+                Recipients= new ObservableCollection<Recipient>(BackRecipients.AsParallel()
+                    .Where((e) => e.Name.ToLower().Contains(_Name)));
             }
         }
         public ICommand UpdateDataCommand { get; }
