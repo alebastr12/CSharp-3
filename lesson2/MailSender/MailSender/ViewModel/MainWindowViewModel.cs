@@ -19,6 +19,7 @@ namespace MailSender.ViewModel
         private readonly IRecipientsDataService _RecipientsDataService;
         private readonly IServerDataServices _ServerDataServices;
         private readonly ISenderDataServices _SenderDataServices;
+        private readonly IMessageDataServices _MessageDataServices;
 
         private string _Title = "Рассыльщик почты";
 
@@ -58,6 +59,12 @@ namespace MailSender.ViewModel
             get => _Senders;
             private set => Set(ref _Senders, value);
         }
+        private ObservableCollection<Message> _Messages = new ObservableCollection<Message>();
+        public ObservableCollection<Message> Messages
+        {
+            get => _Messages;
+            private set => Set(ref _Messages, value);
+        }
         public Recipient CurrentRecipient
         {
             get => _CurrentRecipient;
@@ -89,11 +96,12 @@ namespace MailSender.ViewModel
         
 
         public MainWindowViewModel(IRecipientsDataService recipientsDataService, IServerDataServices serverDataServices, 
-            ISenderDataServices senderDataServices)
+            ISenderDataServices senderDataServices, IMessageDataServices messageDataServices)
         {
             _SenderDataServices = senderDataServices;
             _ServerDataServices = serverDataServices;
             _RecipientsDataService = recipientsDataService;
+            _MessageDataServices = messageDataServices;
             UpdateDataCommand = new RelayCommand(OnUpdateDataCommandExecuted, CanUpdateDataCommandExecute);
             CreateRecipientCommand = new RelayCommand(OnCreateRecipientCommandExecuted, CanCreateRecipientCommandExecute);
             SaveRecipientCommand = new RelayCommand<Recipient>(OnSaveRecipientCommandExecuted, CanSaveRecipientCommandExecuted);
@@ -154,7 +162,7 @@ namespace MailSender.ViewModel
 
             UpdateData(_ServerDataServices, Servers);
             UpdateData(_SenderDataServices, Senders);
-
+            UpdateData(_MessageDataServices, Messages);
         }
     }
 }

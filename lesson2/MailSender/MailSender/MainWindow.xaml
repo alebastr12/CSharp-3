@@ -250,7 +250,7 @@
                                     </StackPanel>
                                 </Button>
                             </UniformGrid>
-                            <ListBox Name="MessagesList" ItemsSource="{x:Static data:TestData.Messeges}">
+                            <ListBox Name="MessagesList" ItemsSource="{Binding Messages}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="{x:Type data:Message}">
                                         <TextBlock Text="{Binding subject}" ToolTip="{Binding body}"/>

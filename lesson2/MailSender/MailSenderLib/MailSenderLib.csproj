@@ -31,8 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +54,7 @@
     <Compile Include="Data\BaseEntityes\Entity.cs" />
     <Compile Include="Data\BaseEntityes\Human.cs" />
     <Compile Include="Data\BaseEntityes\NamedEntity.cs" />
+    <Compile Include="Data\EF\MailSenderDB.cs" />
     <Compile Include="Data\Message.cs" />
     <Compile Include="Data\Linq2SQL\Recipient.cs" />
     <Compile Include="Data\Linq2SQL\Recipients.designer.cs">
@@ -59,12 +68,22 @@
     <Compile Include="Data\TestData.cs" />
     <Compile Include="MailSenderService.cs" />
     <Compile Include="MailSheduler.cs" />
+    <Compile Include="Migrations\201907071918012_Rev0.cs" />
+    <Compile Include="Migrations\201907071918012_Rev0.Designer.cs">
+      <DependentUpon>201907071918012_Rev0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\EFServices\DataInEF.cs" />
+    <Compile Include="Services\EFServices\MessageDataServicesEF.cs" />
+    <Compile Include="Services\EFServices\RecipientDataServicesEF.cs" />
+    <Compile Include="Services\EFServices\SenderDataServicesEF.cs" />
+    <Compile Include="Services\EFServices\ServerDataServicesEF.cs" />
     <Compile Include="Services\IDataServices.cs" />
     <Compile Include="Services\IMailSender.cs" />
     <Compile Include="Services\IMailSenderServices.cs" />
@@ -89,6 +108,7 @@
     <None Include="Data\Linq2SQL\Recipients.dbml.layout">
       <DependentUpon>Recipients.dbml</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -96,6 +116,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907071918012_Rev0.resx">
+      <DependentUpon>201907071918012_Rev0.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
