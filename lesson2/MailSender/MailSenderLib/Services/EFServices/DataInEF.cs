@@ -100,6 +100,7 @@ namespace MailSenderLib.Services.EFServices
                 default:
                     break;
             }
+            _db.SaveChanges();
         }
 
         public abstract IEnumerable<T> GetAll();
