@@ -12,7 +12,6 @@ namespace MailSenderLib.Data.BaseEntityes
     {
         [Required,MaxLength(50)]
         public string Address { get; set; }
-        [Required]
         public string Description { get; set; }
     }
 }
