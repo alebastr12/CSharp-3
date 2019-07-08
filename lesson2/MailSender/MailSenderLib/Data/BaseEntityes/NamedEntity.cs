@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MailSenderLib.Data.BaseEntityes
-namespace MailSenderLib.Data
+
+namespace MailSenderLib.Data.BaseEntityes
 {
-    public class Recipient : Human
+    public abstract class NamedEntity : Entity
     {
+        public string Name { get; set; }
     }
 }

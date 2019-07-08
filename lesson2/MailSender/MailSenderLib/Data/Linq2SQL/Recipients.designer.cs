@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MailSenderLib.Data
+namespace MailSenderLib.Data.Linq2SQL
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -107,8 +107,6 @@ namespace MailSenderLib.Data
 			OnCreated();
 		}
 		
-        
-
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
