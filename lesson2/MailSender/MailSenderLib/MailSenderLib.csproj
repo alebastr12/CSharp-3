@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Database.cs" />
     <Compile Include="Data\Messege.cs" />
+    <Compile Include="Data\Recipient.cs" />
     <Compile Include="Data\Recipients.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

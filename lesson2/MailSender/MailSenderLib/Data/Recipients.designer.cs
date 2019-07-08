@@ -107,10 +107,7 @@ namespace MailSenderLib.Data
 			OnCreated();
 		}
 		
-        public bool IsValid()
-        {
-            return !(string.IsNullOrEmpty(_Name) | string.IsNullOrEmpty(Adddress));
-        }
+        
 
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
