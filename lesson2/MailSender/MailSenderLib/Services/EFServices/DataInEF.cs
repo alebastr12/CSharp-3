@@ -104,7 +104,10 @@ namespace MailSenderLib.Services.EFServices
         }
 
         public abstract IEnumerable<T> GetAll();
-
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await Task.Run(() => GetAll());
+        }
         public abstract T GetById(int id);
     }
 }

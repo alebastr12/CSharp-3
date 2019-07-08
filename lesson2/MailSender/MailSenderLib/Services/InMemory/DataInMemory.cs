@@ -12,6 +12,10 @@ namespace MailSenderLib.Services.InMemory
         protected readonly List<T> _Items = new List<T>();
 
         public IEnumerable<T> GetAll() => _Items;
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await Task.Run(() => GetAll());
+        }
         public void Add(T item)
         {
             if (_Items.Any(i => i.Id == item.Id)) return;

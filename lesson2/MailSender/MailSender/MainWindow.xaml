@@ -28,7 +28,7 @@
                         <fa:ImageAwesome Icon="File"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Сохранить">
+                <MenuItem Header="Сохранить" Command="{Binding ReportRecipientCommand}">
                     <MenuItem.Icon>
                         <fa:ImageAwesome Icon="Save"/>
                     </MenuItem.Icon>

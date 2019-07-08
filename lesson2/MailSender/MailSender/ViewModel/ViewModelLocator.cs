@@ -22,6 +22,7 @@ using MailSenderLib.Services.Linq2SQL;
 //using MailSenderLib.Services.InMemory;
 using MailSenderLib.Services.EFServices;
 using MailSenderLib.Data.EF;
+using MailSenderLib.Services.Reports;
 
 
 
@@ -47,6 +48,7 @@ namespace MailSender.ViewModel
             SimpleIoc.Default.Register<IServerDataServices, ServerDataServicesEF>();
             SimpleIoc.Default.Register<ISenderDataServices, SenderDataServicesEF>();
             SimpleIoc.Default.Register<IMessageDataServices, MessageDataServicesEF>();
+            SimpleIoc.Default.Register<IRecipientReportService, RecipientsReportService>();
 
             SimpleIoc.Default.Register<MainWindowViewModel>();
 

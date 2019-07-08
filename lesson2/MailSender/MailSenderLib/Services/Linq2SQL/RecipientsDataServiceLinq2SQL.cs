@@ -46,7 +46,10 @@ namespace MailSenderLib.Services.Linq2SQL
             })
            .ToArray();
         }
-
+        public async Task<IEnumerable<Recipient>> GetAllAsync()
+        {
+            return await Task.Run(() => GetAll());
+        }
         public void Edit(Recipient item)
         {
             _db.SubmitChanges();

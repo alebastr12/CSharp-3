@@ -10,6 +10,11 @@ namespace MailSenderLib.Services
     {
         /// <summary>Извлечь</summary>
         IEnumerable<T> GetAll();
+        /// <summary>
+        /// Извлечь асинхронно
+        /// </summary>
+        /// <returns>Коллекция сущностей</returns>
+        Task<IEnumerable<T>> GetAllAsync();
 
         T GetById(int id);
 
