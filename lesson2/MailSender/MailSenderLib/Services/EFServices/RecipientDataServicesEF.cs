@@ -11,14 +11,31 @@ namespace MailSenderLib.Services.EFServices
     public class RecipientDataServicesEF : DataInEF<Recipient>, IRecipientsDataService
     {
         public RecipientDataServicesEF(MailSenderDB db) : base(db) { }
-        public override IEnumerable<Recipient> GetAll()
+
+        public override void Edit(Recipient item)
         {
-            return _db.Recipients;
+            if (item is null) throw new ArgumentNullException(nameof(item));
+            var db_item = GetById(item.Id);
+            if (db_item is null) return;
+
+            db_item.Address = item.Address;
+            db_item.Name = item.Name;
+            db_item.Description = item.Description;
+
+            _db.SaveChanges();
         }
 
-        public override Recipient GetById(int id)
+        public override async Task EditAsync(Recipient item)
         {
-            return _db.Recipients.Find(id);
+            if (item is null) throw new ArgumentNullException(nameof(item));
+            var db_item = await GetByIdAsync(item.Id).ConfigureAwait(false);
+            if (db_item is null) return;
+
+            db_item.Address = item.Address;
+            db_item.Name = item.Name;
+            db_item.Description = item.Description;
+
+            await _db.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }

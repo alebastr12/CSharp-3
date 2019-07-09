@@ -14,14 +14,29 @@ namespace MailSenderLib.Services.EFServices
         {
 
         }
-        public override IEnumerable<Message> GetAll()
+
+        public override void Edit(Message item)
         {
-            return _db.Messages;
+            if (item is null) throw new ArgumentNullException(nameof(item));
+            var db_item = GetById(item.Id);
+            if (db_item is null) return;
+
+            db_item.subject = item.subject;
+            db_item.body = item.body;
+
+            _db.SaveChanges();
         }
 
-        public override Message GetById(int id)
+        public override async Task EditAsync(Message item)
         {
-            return _db.Messages.Find(id);
+            if (item is null) throw new ArgumentNullException(nameof(item));
+            var db_item = await GetByIdAsync(item.Id).ConfigureAwait(false);
+            if (db_item is null) return;
+
+            db_item.subject = item.subject;
+            db_item.body = item.body;
+
+            await _db.SaveChangesAsync().ConfigureAwait(false);
         }
     }
 }
